@@ -1,0 +1,32 @@
+Basic networking scanning with NMAP
+
+There are four open ports across the discovered hosts, and each port indicates a service that is actively listening for network connections.
+
+Host: 10.0.2.2
+135/TCP (MSRPC): Windows Remote Procedure Call service.
+MSRPC enables Windows applications and services to communicate with one another across a network. It is essential for system administration, Windows Management Instrumentation (WMI), and many Windows services. Frequently targeted by attackers for reconnaissance and remote exploitation. Should only be accessible to trusted hosts and protected by a firewall.
+
+
+445/TCP (SMB): Windows file and printer sharing.
+SMB (Server Message Block) is used for file sharing, printer sharing, and remote administrative tasks on Windows systems, and one of the most commonly attacked ports. Vulnerabilities such as EternalBlue (MS17-010) exploited SMB. Exposing this port unnecessarily can lead to ransomware or unauthorized access.
+
+7070/TCP: Application specific service identified as RealServer by Nmap.
+Nmap labels port 7070 as RealServer, historically associated with RealNetworks streaming services. However, many modern applications also use port 7070 as a custom application port, web service, proxy, or development server. The actual service may differ from Nmap's guess.
+
+997 other TCP ports: Filtered, meaning a firewall or packet filtering prevented Nmap from determining whether they were open.
+
+Host: 10.0.2.3
+53/TCP (DNS): DNS service.
+999 other TCP ports: Filtered or unreachable
+
+Host: 10.0.2.15
+The host responded to the ping sweep (-sP), confirming it is online.
+No port scan results are shown in the screenshot, likely because the output continues beyond the visible portion.
+
+Security Assessment
+
+The scan highlights that 10.0.2.2 is a Windows machine, as the combination of ports 135 and 445 is characteristic of Windows systems. If these services are not required externally, restricting access with a firewall is recommended.
+
+The presence of port 53 on 10.0.2.3 indicates that the host is likely functioning as a DNS server or providing DNS services.
+
+The service on port 7070 should be verified, as Nmap's service detection is based on well-known port assignments and may not accurately identify custom applications.
